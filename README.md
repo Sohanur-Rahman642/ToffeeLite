@@ -1,2 +1,2 @@
 # ToffeeLite
-ToffeeLite is a android application that shows list of movies from imdb &amp; their details 
+ToffeeLite is a android application that shows list of movies from omdb api & and their details 
