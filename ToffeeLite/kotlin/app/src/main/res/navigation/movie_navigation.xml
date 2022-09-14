@@ -50,6 +50,10 @@
     <fragment
         android:id="@+id/videoViewFragment"
         android:name="com.example.toffeelite.ui.videoView.VideoViewFragment"
-        android:label="fragment_video_view"
-        tools:layout="@layout/fragment_video_view" />
+        android:label="Play"
+        tools:layout="@layout/fragment_video_view" >
+        <argument
+            android:name="playBackUrl"
+            app:argType="string" />
+    </fragment>
 </navigation>

@@ -25,5 +25,6 @@ data class Movie(
     val Year: String,
     val imdbID: String,
     val imdbRating: String,
-    val imdbVotes: String
+    val imdbVotes: String,
+    val playBackUrl: String
 )

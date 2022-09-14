@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import com.example.toffeelite.R
+import com.example.toffeelite.databinding.FragmentHomeBinding
 import com.example.toffeelite.databinding.FragmentVideoViewBinding
 import com.example.toffeelite.ui.base.BaseFragment
 import com.google.android.exoplayer2.ExoPlayer
@@ -16,27 +18,30 @@ import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 
 class VideoViewFragment : BaseFragment(true) {
 
-    private lateinit var binding: FragmentVideoViewBinding
+    private lateinit var viewDataBinding: FragmentVideoViewBinding
     private var exoPlayer: ExoPlayer? = null
     private var playbackPosition = 0L
     private var playWhenReady = true
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_video_view, container, false)
+        viewDataBinding =
+            DataBindingUtil.inflate(inflater,
+                R.layout.fragment_video_view, container, false)
+        viewDataBinding.lifecycleOwner = this@VideoViewFragment.viewLifecycleOwner
+        return viewDataBinding.root
+    }
 
-        preparePlayer(view = VideoViewFragment());
+    override fun setupViewModelObservers() {
+        preparePlayer()
     }
 
 
-
-    private fun preparePlayer(view: VideoViewFragment) {
-        exoPlayer = view.context?.let { ExoPlayer.Builder(it).build() }
+    private fun preparePlayer() {
+        exoPlayer = activity?.let { ExoPlayer.Builder(it.baseContext).build() }
         exoPlayer?.playWhenReady = true
-        binding.playerView.player = exoPlayer
+        viewDataBinding.playerView.player = exoPlayer
         val defaultHttpDataSourceFactory = DefaultHttpDataSource.Factory()
         val mediaItem = MediaItem.fromUri(URL)
         val mediaSource =

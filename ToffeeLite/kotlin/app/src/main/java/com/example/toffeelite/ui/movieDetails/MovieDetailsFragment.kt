@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.toffeelite.R
+import com.example.toffeelite.constants.Constants
 import com.example.toffeelite.data.model.EventObserver
 import com.example.toffeelite.databinding.FragmentMovieDetailsBinding
 import com.example.toffeelite.ui.base.BaseFragment
@@ -37,13 +38,20 @@ class MovieDetailsFragment : BaseFragment(true) {
     }
 
     override fun setupViewModelObservers() {
-        viewModel.goToVideoView.observe(
+        viewModel.gotoVideoView.observe(
             viewLifecycleOwner,
-            EventObserver { navigateToVideoView() })
+            EventObserver {
+                if(it.playBackUrl != null){
+                    navigateToVideoView(it.playBackUrl)
+                }else{
+                    navigateToVideoView(Constants.TEST_PLAYBACK_URL)
+                }
+            })
     }
 
-    private fun navigateToVideoView() {
-        val action = MovieDetailsFragmentDirections.actionMovieDetailsFragmentToVideoViewFragment()
+    private fun navigateToVideoView(url: String) {
+        val action = MovieDetailsFragmentDirections.actionMovieDetailsFragmentToVideoViewFragment(url)
+        println("action $action")
         findNavController().navigate(action)
     }
 }

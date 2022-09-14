@@ -5,7 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.toffeelite.data.model.Event
+import com.example.toffeelite.data.model.GoToMovie
+import com.example.toffeelite.data.model.GoToVideoView
 import com.example.toffeelite.data.model.MovieListType
+import com.example.toffeelite.data.model.omdb.Search
 import com.example.toffeelite.data.model.omdb.entity.Movie
 import com.example.toffeelite.data.repository.MovieRepository
 import com.example.toffeelite.util.extension.liveDataBlockScope
@@ -18,15 +21,15 @@ class MovieDetailsViewModelFactory(private val imdbId: String) :
     }
 }
 
-class MovieDetailsViewModel(imdbId: String) : ViewModel() {
+class MovieDetailsViewModel(imdbId: String) : ViewModel(), GoToVideoView{
 
     private val movieRepository = MovieRepository()
     val movie: LiveData<Movie>
 
-    private val _goToVideoView = MutableLiveData<Event<MovieListType>>()
-    val goToVideoView: LiveData<Event<MovieListType>> = _goToVideoView
+    private val _gotoVideoView = MutableLiveData<Event<Movie>>()
+    val gotoVideoView: LiveData<Event<Movie>> = _gotoVideoView
 
-
+    override val goToVideoViewEvent: MutableLiveData<Event<Movie>> = MutableLiveData()
 
     init {
         movie = liveDataBlockScope {
@@ -37,10 +40,11 @@ class MovieDetailsViewModel(imdbId: String) : ViewModel() {
 
     }
 
-
-    fun goToVideoViewPressed(movieListType: MovieListType) {
-        _goToVideoView.value = Event(movieListType)
-        println("goToShowAllEvent ${_goToVideoView.value}")
+    fun click(movie: Movie){
+        println("clicked")
+        _gotoVideoView.value = Event(movie)
     }
+
+
 
 }

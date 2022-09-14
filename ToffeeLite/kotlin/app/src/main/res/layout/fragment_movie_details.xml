@@ -7,6 +7,11 @@
         <import type="android.view.View" />
 
         <variable
+            name="goToInterface"
+            type="com.example.toffeelite.data.model.GoToVideoView" />
+
+
+        <variable
             name="viewmodel"
             type="com.example.toffeelite.ui.movieDetails.MovieDetailsViewModel" />
     </data>
@@ -32,7 +37,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/backgrounds/scenic[1]"
-            android:onClick="@{() -> viewmodel.goToVideoViewPressed()"
+            android:onClick="@{() -> viewmodel.click(viewmodel.movie)}"
             />
 
         <ProgressBar
