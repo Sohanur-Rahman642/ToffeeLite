@@ -23,6 +23,11 @@ class HomeViewModel : ViewModel(), GoToMovie{
 
     override val goToMovieDetailsEvent: MutableLiveData<Event<Search>> = MutableLiveData()
 
+    private val loadedLatestMovieList: LiveData<List<Search>>
+    private val latestPage = MutableLiveData<Int>().apply { value = 1 }
+    val latestMovieList = MediatorLiveData<MutableList<Search>>()
+
+
     init {
         loadedFavouriteMovieList = favouritePage.switchMap {
             liveDataBlockScope {
@@ -39,6 +44,24 @@ class HomeViewModel : ViewModel(), GoToMovie{
                 favouriteMovieList.appendList(list)
             }
         }
+
+
+        loadedLatestMovieList = latestPage.switchMap {
+            liveDataBlockScope {
+                movieRepository.loadLatestMovieList("man",it, 2022) {
+                    println("iterror $it")
+                }
+            }
+        }
+
+
+        latestMovieList.addSource(loadedLatestMovieList) {
+            it?.let { list ->
+                println("it latest $it")
+                println("list latest $list")
+                latestMovieList.appendList(list)
+            }
+        }
     }
 
 
@@ -46,6 +69,9 @@ class HomeViewModel : ViewModel(), GoToMovie{
         favouritePage.value = favouritePage.value?.plus(1)
     }
 
+    fun loadMoreLatest() {
+        latestPage.value = latestPage.value?.plus(1)
+    }
 
     fun goToShowAllPressed(movieListType: MovieListType) {
         _goToShowAllEvent.value = Event(movieListType)

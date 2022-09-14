@@ -10,5 +10,8 @@ interface ApiInterface {
     interface  MovieService{
         @GET("?")
         fun fetchFavouriteList(@Query("s") title : String, @Query("page") page : Int) : Call<OmdbMovieResponse>
+
+        @GET("?")
+        fun fetchLatestList(@Query("s") title : String, @Query("page") page : Int, @Query("y") year : Int) : Call<OmdbMovieResponse>
     }
 }
