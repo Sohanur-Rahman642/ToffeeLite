@@ -40,18 +40,22 @@ Model-View-ViewModel (MVVM)
 ## Screenshots
 
 <p align = "left" >
-  <img width="250" height="500" src="images/home1.png"> &emsp; &emsp; &emsp; &emsp; &emsp; 
-  <img width="250" height="500"  src="images/home2.png"> &emsp; &emsp; &emsp; &emsp; &emsp; 
+  <img width="250" height="500" src="images/home1.png"> &emsp; &emsp; &emsp; 
+  <img width="250" height="500"  src="images/home2.png"> &emsp; &emsp; &emsp;
   <img width="250" height="500" src="images/details1.png"> 
 </p>
 
-### Movie | TV Show | Person
+### Movie | Carousel | Favourite(Batman) | Latest| Details | Player
 
 <p align = "left" >
-  <img width="250" height="500" src="images/details2.png"> &emsp; &emsp; &emsp; &emsp; &emsp;
-  <img width="250" height="500"  src="images/player1.png"> &emsp; &emsp; &emsp; &emsp; &emsp; 
+  <img width="250" height="500" src="images/details2.png"> &emsp; &emsp; &emsp; 
+  <img width="250" height="500"  src="images/player1.png"> &emsp; &emsp; &emsp; 
   <img width="250" height="500" src="images/player2.png"> 
 </p>
+
+## Note
+##### For carousel I have implemented an algorithm that collects poster from latest movies & shows five images randomly 
+##### For saving the state of video player I have used sharedpreference to store the lastest playback session 
 
 ## Setup
 
