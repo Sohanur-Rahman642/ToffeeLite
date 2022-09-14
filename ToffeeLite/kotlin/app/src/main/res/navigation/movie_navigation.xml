@@ -55,5 +55,8 @@
         <argument
             android:name="playBackUrl"
             app:argType="string" />
+        <argument
+            android:name="idmbIdArg"
+            app:argType="string" />
     </fragment>
 </navigation>

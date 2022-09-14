@@ -41,16 +41,16 @@ class MovieDetailsFragment : BaseFragment(true) {
         viewModel.gotoVideoView.observe(
             viewLifecycleOwner,
             EventObserver {
-                if(it.playBackUrl != null){
-                    navigateToVideoView(it.playBackUrl)
+                if(it.playBackUrl != null && it.imdbID != null){
+                    navigateToVideoView(it.playBackUrl, it.imdbID)
                 }else{
-                    navigateToVideoView(Constants.TEST_PLAYBACK_URL)
+                    navigateToVideoView(Constants.TEST_PLAYBACK_URL, it.imdbID)
                 }
             })
     }
 
-    private fun navigateToVideoView(url: String) {
-        val action = MovieDetailsFragmentDirections.actionMovieDetailsFragmentToVideoViewFragment(url)
+    private fun navigateToVideoView(url: String, imdbId: String) {
+        val action = MovieDetailsFragmentDirections.actionMovieDetailsFragmentToVideoViewFragment(url,imdbId)
         println("action $action")
         findNavController().navigate(action)
     }

@@ -5,37 +5,327 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="viewmodel"
+            type="com.example.toffeelite.ui.videoView.VideoViewModel" />
+
     </data>
 
-
-    <FrameLayout
-        xmlns:argType="http://schemas.android.com/tools"
-        android:id="@+id/flRoot"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:focusable="true"
-        android:keepScreenOn="true">
+        android:layout_height="match_parent">
 
-        <com.google.android.exoplayer2.ui.StyledPlayerView
-            android:id="@+id/playerView"
+        <FrameLayout
+            xmlns:argType="http://schemas.android.com/tools"
+            android:id="@+id/videoFrame"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            app:show_subtitle_button="true"
-            argType:fastforward_increment="15000"
-            argType:resize_mode="fixed_width"
-            argType:rewind_increment="15000"
-            argType:show_buffering="when_playing"
-            argType:show_fastforward_button="true"
-            argType:show_next_button="false"
-            argType:show_previous_button="false"
-            argType:show_rewind_button="true"
-            argType:show_subtitle_button="true"
-            argType:use_artwork="true"
-            argType:use_controller="true"
-            argType:use_sensor_rotation="true"
-            android:background="@color/colorPrimary"
+            android:focusable="true"
+            android:keepScreenOn="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             >
-        </com.google.android.exoplayer2.ui.StyledPlayerView>
 
-    </FrameLayout>
+            <com.google.android.exoplayer2.ui.StyledPlayerView
+                android:id="@+id/playerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:show_subtitle_button="true"
+                argType:fastforward_increment="15000"
+                argType:resize_mode="fixed_width"
+                argType:rewind_increment="15000"
+                argType:show_buffering="when_playing"
+                argType:show_fastforward_button="true"
+                argType:show_next_button="false"
+                argType:show_previous_button="false"
+                argType:show_rewind_button="true"
+                argType:show_subtitle_button="true"
+                argType:use_artwork="true"
+                argType:use_controller="true"
+                argType:use_sensor_rotation="true"
+                android:background="@color/colorPrimary"
+                >
+            </com.google.android.exoplayer2.ui.StyledPlayerView>
+
+        </FrameLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/moviesLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="@dimen/content_margin"
+            android:layout_marginRight="@dimen/content_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/videoFrame">
+
+            <ScrollView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="50dp"
+                android:padding="5dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/infoLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/titleText"
+                            style="@style/TitleStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewmodel.movie.title}"
+                            android:textSize="36sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="Title" />
+
+                        <TextView
+                            android:id="@+id/genresText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            app:bind_genres_text="@{viewmodel.movie.genre}"
+                            app:layout_constraintLeft_toLeftOf="@id/titleText"
+                            app:layout_constraintRight_toLeftOf="@id/subInfoLayout"
+                            app:layout_constraintTop_toBottomOf="@id/titleText"
+                            tools:text="Thriller / Adventure / Action / Mystery" />
+
+                        <RatingBar
+                            android:id="@+id/ratingBar"
+                            style="?android:attr/ratingBarStyleSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            app:layout_goneMarginStart="-10dp"
+                            android:numStars="5"
+                            android:stepSize=".5"
+                            android:theme="@style/RatingBarTheme"
+                            app:bind_rating_bar="@{viewmodel.movie.imdbRating}"
+                            app:bind_rating_stars="@{5}"
+                            app:bind_rating_bar_view="@{ratingBar}"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/genresText"
+                            tools:rating="4" />
+
+                        <TextView
+                            android:id="@+id/numOfVotes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="8dp"
+                            app:bind_votes_text="@{viewmodel.movie.imdbVotes}"
+                            app:bind_votes_text_view="@{numOfVotes}"
+                            app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
+                            app:layout_constraintStart_toEndOf="@+id/ratingBar"
+                            app:layout_constraintTop_toBottomOf="@id/genresText"
+                            tools:text="189 votes" />
+
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/languageLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            app:layout_constraintTop_toBottomOf="@+id/numOfVotes"
+                            app:layout_constraintStart_toStartOf="parent"
+
+                            >
+
+                            <ImageView
+                                android:id="@+id/airDateImage"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:contentDescription="@null"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/ic_baseline_language_24" />
+
+                            <TextView
+                                android:id="@+id/airDateText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_marginStart="8dp"
+                                android:gravity="center_vertical"
+                                android:textSize="12sp"
+                                app:text="@{viewmodel.movie.language}"
+                                app:layout_constraintBottom_toBottomOf="@id/airDateImage"
+                                app:layout_constraintLeft_toRightOf="@id/airDateImage"
+                                app:layout_constraintTop_toTopOf="@id/airDateImage"
+                                tools:text="English" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/dirLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            app:layout_constraintTop_toBottomOf="@+id/languageLayout"
+                            app:layout_constraintStart_toStartOf="parent"
+                            >
+
+                            <TextView
+                                android:id="@+id/dirNameText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:gravity="center_vertical"
+                                android:textSize="12sp"
+                                android:text="Director: "
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                />
+
+                            <TextView
+                                android:id="@+id/dirName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_marginStart="8dp"
+                                android:gravity="center_vertical"
+                                android:textSize="12sp"
+                                android:text="@{viewmodel.movie.director}"
+                                app:layout_constraintBottom_toBottomOf="@id/dirNameText"
+                                app:layout_constraintLeft_toRightOf="@id/dirNameText"
+                                app:layout_constraintTop_toTopOf="@id/dirNameText"
+                                tools:text="Mat Reaves" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            app:layout_constraintTop_toBottomOf="@+id/dirLayout"
+                            app:layout_constraintStart_toStartOf="parent"
+                            >
+
+                            <TextView
+                                android:id="@+id/castsText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:gravity="center_vertical"
+                                android:textSize="12sp"
+                                android:text="Casts: "
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                />
+
+                            <TextView
+                                android:id="@+id/casts"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_marginStart="8dp"
+                                android:gravity="center_vertical"
+                                android:textSize="12sp"
+                                android:text="@{viewmodel.movie.actors}"
+                                app:layout_constraintBottom_toBottomOf="@id/castsText"
+                                app:layout_constraintLeft_toRightOf="@id/castsText"
+                                app:layout_constraintTop_toTopOf="@id/castsText"
+                                tools:text="Mat Reaves" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+                        <LinearLayout
+                            android:id="@+id/subInfoLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/ratingBar">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/episodeImage"
+                                    android:layout_width="18dp"
+                                    android:layout_height="18dp"
+                                    android:contentDescription="@null"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:srcCompat="@drawable/ic_baseline_event_24" />
+
+                                <TextView
+                                    android:id="@+id/episodeText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_marginStart="8dp"
+                                    android:gravity="center_vertical"
+                                    android:textSize="12sp"
+                                    android:text="@{viewmodel.movie.released}"
+                                    app:layout_constraintBottom_toBottomOf="@id/episodeImage"
+                                    app:layout_constraintLeft_toRightOf="@id/episodeImage"
+                                    app:layout_constraintTop_toTopOf="@id/episodeImage"
+                                    tools:text="22 Oct 2017" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp">
+
+                                <ImageView
+                                    android:id="@+id/seasonImage"
+                                    android:layout_width="18dp"
+                                    android:layout_height="18dp"
+                                    android:contentDescription="@null"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:srcCompat="@drawable/ic_baseline_access_time_24" />
+
+                                <TextView
+                                    android:id="@+id/seasonText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_marginStart="8dp"
+                                    android:gravity="center_vertical"
+                                    android:textSize="12sp"
+                                    app:bind_runtime_text="@{viewmodel.movie.runtime}"
+                                    app:layout_constraintBottom_toBottomOf="@id/seasonImage"
+                                    app:layout_constraintLeft_toRightOf="@id/seasonImage"
+                                    app:layout_constraintTop_toTopOf="@id/seasonImage"
+                                    tools:text="2:15 / 135 min" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <TextView
+                        android:id="@+id/overviewText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:alpha=".7"
+                        android:text="@{viewmodel.movie.plot}"
+                        tools:text="When a sadistic serial killer begins murdering key political figures in Gotham, Batman is forced to investigate the city's hidden corruption and question his family's involvement." />
+
+
+
+                </LinearLayout>
+            </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
 </layout>

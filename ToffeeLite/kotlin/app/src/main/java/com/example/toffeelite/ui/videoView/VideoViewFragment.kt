@@ -7,10 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.example.toffeelite.R
 import com.example.toffeelite.databinding.FragmentHomeBinding
+import com.example.toffeelite.databinding.FragmentMovieDetailsBinding
 import com.example.toffeelite.databinding.FragmentVideoViewBinding
 import com.example.toffeelite.ui.base.BaseFragment
+import com.example.toffeelite.ui.movieDetails.MovieDetailsFragmentArgs
+import com.example.toffeelite.ui.movieDetails.MovieDetailsViewModel
+import com.example.toffeelite.ui.movieDetails.MovieDetailsViewModelFactory
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.source.dash.DashMediaSource
@@ -18,18 +24,25 @@ import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 
 class VideoViewFragment : BaseFragment(true) {
 
+    private val args: VideoViewFragmentArgs by navArgs()
+    private val viewModel: VideoViewModel by viewModels { VideoViewModelFactory(args.playBackUrl, args.idmbIdArg) }
     private lateinit var viewDataBinding: FragmentVideoViewBinding
+
     private var exoPlayer: ExoPlayer? = null
     private var playbackPosition = 0L
     private var playWhenReady = true
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
+        // Inflate the layout for this fragment
         viewDataBinding =
-            DataBindingUtil.inflate(inflater,
-                R.layout.fragment_video_view, container, false)
-        viewDataBinding.lifecycleOwner = this@VideoViewFragment.viewLifecycleOwner
+            FragmentVideoViewBinding.inflate(inflater, container, false)
+                .apply {
+                    viewmodel = viewModel
+                    lifecycleOwner = this@VideoViewFragment.viewLifecycleOwner
+                }
         return viewDataBinding.root
     }
 
