@@ -12,6 +12,9 @@
         android:label="Home"
         tools:layout="@layout/fragment_home" >
         <action
+            android:id="@+id/action_navigation_home_to_showAllFragment"
+            app:destination="@id/showAllFragment" />
+        <action
             android:id="@+id/action_homeFragment_to_movieDetailsFragment"
             app:destination="@id/movieDetailsFragment" />
     </fragment>

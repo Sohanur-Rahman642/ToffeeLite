@@ -7,7 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.toffeelite.R
+import com.example.toffeelite.data.model.EventObserver
+import com.example.toffeelite.data.model.MovieListType
 import com.example.toffeelite.databinding.FragmentHomeBinding
 import com.example.toffeelite.ui.base.BaseFragment
 
@@ -29,7 +33,14 @@ class HomeFragment : BaseFragment(false)  {
 
 
     override fun setupViewModelObservers() {
+        viewModel.goToShowAllEvent.observe(
+            viewLifecycleOwner,
+            EventObserver { navigateToShowAll(it) })
+    }
 
+    private fun navigateToShowAll(movieListType: MovieListType) {
+        val action = HomeFragmentDirections.actionNavigationHomeToShowAllFragment(movieListType)
+        findNavController().navigate(action)
     }
 
 }
