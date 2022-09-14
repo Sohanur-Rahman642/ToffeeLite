@@ -5,12 +5,12 @@ import com.google.gson.annotations.SerializedName
 
 data class OmdbMovieResponse(
     @SerializedName("Search")
-    var search: List<Search>,
+    override var search: List<Search>,
 
     @SerializedName("Response")
-    var response: String,
+    override var response: String,
 
     @SerializedName("totalResults")
-    var totalResults: String,
+    override var totalResults: String,
 
-    )
+    ) : OmdbPageListResponse<Search>
