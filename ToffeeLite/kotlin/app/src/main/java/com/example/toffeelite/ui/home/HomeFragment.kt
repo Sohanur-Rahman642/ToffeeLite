@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.example.toffeelite.R
 import com.example.toffeelite.data.model.EventObserver
@@ -36,10 +37,20 @@ class HomeFragment : BaseFragment(false)  {
         viewModel.goToShowAllEvent.observe(
             viewLifecycleOwner,
             EventObserver { navigateToShowAll(it) })
+
+        viewModel.goToMovieDetailsEvent.observe(
+            viewLifecycleOwner,
+            EventObserver { navigateToMovieDetails(it.imdbID, it.Title) })
     }
 
     private fun navigateToShowAll(movieListType: MovieListType) {
         val action = HomeFragmentDirections.actionNavigationHomeToShowAllFragment(movieListType)
+        findNavController().navigate(action)
+    }
+
+    private fun navigateToMovieDetails(imdbId: String, title: String) {
+        val action =
+            HomeFragmentDirections.actionHomeFragmentToMovieDetailsFragment(imdbId, title)
         findNavController().navigate(action)
     }
 

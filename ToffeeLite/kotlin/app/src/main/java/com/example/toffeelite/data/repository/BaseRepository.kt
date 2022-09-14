@@ -26,4 +26,21 @@ abstract class BaseRepository {
             }
             result.apply { postValue(null) }
         }
+
+
+    //Initiate api call for fetch details of a movie
+    //Takes 3 parameters: a retrofit call, a livedata to watch for, an errortext function to distribute errors
+    protected suspend fun <Type> loadCall(
+        call: () -> Call<Type>,
+        result: MutableLiveData<Type>,
+        errorText: (String) -> Unit
+    ) =
+        withContext(Dispatchers.IO){
+            call().request { response ->
+                response.onSuccess { data?.let { result.postValue((it)) } }
+                response.onFailure { message?.let{ errorText(it)} }
+                response.onException { message?.let { errorText(it)} }
+            }
+            result.apply { postValue(null) }
+        }
 }

@@ -9,8 +9,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.toffeelite.R
+import com.example.toffeelite.data.model.EventObserver
 import com.example.toffeelite.databinding.FragmentShowAllBinding
 import com.example.toffeelite.ui.base.BaseFragment
+import com.example.toffeelite.ui.home.HomeFragmentDirections
 
 class ShowAllFragment : BaseFragment(true) {
 
@@ -32,7 +34,15 @@ class ShowAllFragment : BaseFragment(true) {
     }
 
     override fun setupViewModelObservers() {
+        viewModel.goToMovieDetailsEvent.observe(
+            viewLifecycleOwner,
+            EventObserver { navigateToMovieDetails(it.imdbID, it.Title) })
+    }
 
+    private fun navigateToMovieDetails(imdbId: String, title: String) {
+        val action =
+            ShowAllFragmentDirections.actionShowAllFragmentToMovieDetailsFragment2(imdbId, title)
+        findNavController().navigate(action)
     }
 
 }
