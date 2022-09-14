@@ -11,7 +11,7 @@ See below for more information.
 
 #### Technologies
 * Android, Kotlin
-* [OMDB](https://www.themoviedb.org/)
+* [OMDB](https://www.omdbapi.com/)
 * [Retrofit HTTP Client](https://square.github.io/retrofit/) 
 * [OkHttp](https://square.github.io/okhttp/) - Interceptor
 * [Picasso](https://square.github.io/picasso/) - Loading images, caching
