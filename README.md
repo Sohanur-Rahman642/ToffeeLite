@@ -1,5 +1,5 @@
 # ToffeeLite
-ToffeeLite is a android application that shows list of movies from omdb api &amp; their details 
+ToffeeLite is an android application that shows list of movies from omdb api &amp; their details 
 
 ## Introduction
 This is a demo application built with the goal to create a fun application based on the MVVM architectural pattern using [OMDB](https://www.omdbapi.com/)
