@@ -2,12 +2,15 @@ package com.example.toffeelite.ui.home
 
 import androidx.lifecycle.*
 import com.example.toffeelite.constants.Constants
+import com.example.toffeelite.data.model.Event
+import com.example.toffeelite.data.model.GoToMovie
+import com.example.toffeelite.data.model.MovieListType
 import com.example.toffeelite.data.model.omdb.Search
 import com.example.toffeelite.data.repository.MovieRepository
 import com.example.toffeelite.util.extension.appendList
 import com.example.toffeelite.util.extension.liveDataBlockScope
 
-class HomeViewModel : ViewModel(){
+class HomeViewModel : ViewModel(), GoToMovie{
 
     private val movieRepository = MovieRepository()
 
@@ -15,12 +18,15 @@ class HomeViewModel : ViewModel(){
     private val favouritePage = MutableLiveData<Int>().apply { value = 1 }
     val favouriteMovieList = MediatorLiveData<MutableList<Search>>()
 
+    private val _goToShowAllEvent = MutableLiveData<Event<MovieListType>>()
+    val goToShowAllEvent: LiveData<Event<MovieListType>> = _goToShowAllEvent
+
+    override val goToMovieDetailsEvent: MutableLiveData<Event<Search>> = MutableLiveData()
 
     init {
         loadedFavouriteMovieList = favouritePage.switchMap {
             liveDataBlockScope {
-                println("run liveDataBlockScope 98765")
-                movieRepository.loadFavouriteMovieList(Constants.FavouriteMovieTitle,it,) {
+                movieRepository.loadFavouriteMovieList(Constants.FavouriteMovieTitle,it) {
                     println("iterror $it")
                 }
             }
@@ -33,5 +39,16 @@ class HomeViewModel : ViewModel(){
                 favouriteMovieList.appendList(list)
             }
         }
+    }
+
+
+    fun loadMoreFavourites() {
+        favouritePage.value = favouritePage.value?.plus(1)
+    }
+
+
+    fun goToShowAllPressed(movieListType: MovieListType) {
+        _goToShowAllEvent.value = Event(movieListType)
+        println("goToShowAllEvent ${_goToShowAllEvent.value}")
     }
 }
