@@ -63,7 +63,7 @@ class VideoViewFragment : BaseFragment(true) {
         exoPlayer?.playWhenReady = true
         viewDataBinding.playerView.player = exoPlayer
         val defaultHttpDataSourceFactory = DefaultHttpDataSource.Factory()
-        val mediaItem = MediaItem.fromUri(URL)
+        val mediaItem = MediaItem.fromUri(args.playBackUrl)
         val mediaSource =
             DashMediaSource.Factory(defaultHttpDataSourceFactory).createMediaSource(mediaItem)
         exoPlayer?.setMediaSource(mediaSource)
@@ -97,9 +97,6 @@ class VideoViewFragment : BaseFragment(true) {
         releasePlayer()
     }
 
-    companion object {
-        const val URL =
-            "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd"
-    }
+
 
 }
