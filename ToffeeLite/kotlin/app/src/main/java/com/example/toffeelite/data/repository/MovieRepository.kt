@@ -10,7 +10,7 @@ class MovieRepository : BaseRepository() {
     private val movieService =
         ServiceBuilder.buildService(ApiInterface.MovieService::class.java);
 
-    //coroutine higher order function to fetch favourite movie list such as Batman
+    //suspend function to fetch favourite movie list such as Batman
     //Takes 3 parameters: a title, a page number, an errortext function with a string param
     suspend fun loadFavouriteMovieList(title:String, page: Int, errorText: (String) -> Unit) =
         loadPageListCall(
@@ -20,7 +20,7 @@ class MovieRepository : BaseRepository() {
         )
 
 
-    //coroutine higher order function to fetch latest movie list with year = 2022 filter
+    //suspend function to fetch latest movie list with year = 2022 filter
     //Takes 4 parameters: a title, a page number, year, an errortext function with a string param
     suspend fun loadLatestMovieList(title:String, page: Int, year: Int, errorText: (String) -> Unit) =
         loadPageListCall(

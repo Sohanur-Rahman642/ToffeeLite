@@ -25,7 +25,7 @@ import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 class VideoViewFragment : BaseFragment(true) {
 
     private val args: VideoViewFragmentArgs by navArgs()
-    private val viewModel: VideoViewModel by viewModels { VideoViewModelFactory(args.playBackUrl, args.idmbIdArg) }
+    private val viewModel: VideoViewModel by viewModels { VideoViewModelFactory(args.playBackUrl, args.idmbIdArg, this.requireContext()) }
     private lateinit var viewDataBinding: FragmentVideoViewBinding
 
     private var exoPlayer: ExoPlayer? = null
@@ -47,7 +47,14 @@ class VideoViewFragment : BaseFragment(true) {
     }
 
     override fun setupViewModelObservers() {
+        setPlaybackPosition()
         preparePlayer()
+    }
+
+    private fun setPlaybackPosition() {
+        if(viewModel.getCurrentPlayBackPosition() > 0){
+            playbackPosition = viewModel.getCurrentPlayBackPosition()
+        }
     }
 
 
@@ -68,6 +75,7 @@ class VideoViewFragment : BaseFragment(true) {
     private fun releasePlayer() {
         exoPlayer?.let { player ->
             playbackPosition = player.currentPosition
+            viewModel.setCurrentPlayBackPosition(playbackPosition)
             playWhenReady = player.playWhenReady
             player.release()
             exoPlayer = null

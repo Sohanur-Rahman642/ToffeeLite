@@ -5,8 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <meta-data android:name="BITMOVIN_ANALYTICS_LICENSE_KEY" android:value="4AEFCC30-D815-49AB-B4D3-4B2700CE0487" />
-    <meta-data android:name="BITMOVIN_PLAYER_LICENSE_KEY" android:value="90898B67-3EED-4C0F-861F-1B16646710DD" />
 
     <application
         android:allowBackup="true"
@@ -16,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

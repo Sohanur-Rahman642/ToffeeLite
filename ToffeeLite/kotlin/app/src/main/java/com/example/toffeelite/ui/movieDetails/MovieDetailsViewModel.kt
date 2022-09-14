@@ -40,7 +40,7 @@ class MovieDetailsViewModel(imdbId: String) : ViewModel(), GoToVideoView{
 
     }
 
-    fun click(movie: Movie){
+    fun onGoToVideoView(movie: Movie){
         println("clicked")
         _gotoVideoView.value = Event(movie)
     }

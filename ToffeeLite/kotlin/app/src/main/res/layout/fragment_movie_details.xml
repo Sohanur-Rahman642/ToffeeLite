@@ -37,7 +37,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/backgrounds/scenic[1]"
-            android:onClick="@{() -> viewmodel.click(viewmodel.movie)}"
+            android:onClick="@{() -> viewmodel.onGoToVideoView(viewmodel.movie)}"
             />
 
         <ProgressBar

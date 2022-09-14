@@ -1,8 +1,10 @@
 package com.example.toffeelite.ui.binding
 
 import android.view.View
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.google.android.exoplayer2.ExoPlayer
 
 @BindingAdapter("bind_genres_text")
 fun TextView.bindGenresText(genres: String?) {
