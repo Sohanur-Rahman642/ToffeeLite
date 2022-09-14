@@ -11,6 +11,8 @@ import kotlinx.coroutines.withContext
 import retrofit2.Call
 
 abstract class BaseRepository {
+    //Initiate api call for fetch list type api with pages
+    //Takes 3 parameters: a retrofit call, a livedata to watch for, an errortext function to distribute errors
     protected suspend fun <Response : OmdbPageListResponse<ListType>, ListType> loadPageListCall(
         call: () -> Call<Response>,
         result: MutableLiveData<List<ListType>>,

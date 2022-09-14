@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface ApiInterface {
 
-    interface  MovieServicen{
+    interface  MovieService{
         @GET("?")
         fun fetchFavouriteList(@Query("s") title : String, @Query("page") page : Int) : Call<OmdbMovieResponse>
     }
