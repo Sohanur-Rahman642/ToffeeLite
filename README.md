@@ -40,16 +40,16 @@ Model-View-ViewModel (MVVM)
 ## Screenshots
 
 <p align = "left" >
-  <img width="250" height="500" src="images/home1.png"> &emsp; &emsp; &emsp; 
-  <img width="250" height="500"  src="images/home2.png"> &emsp; &emsp; &emsp;
+  <img width="250" height="500" src="images/home1.png"> &emsp; &emsp; 
+  <img width="250" height="500"  src="images/home2.png"> &emsp; &emsp; 
   <img width="250" height="500" src="images/details1.png"> 
 </p>
 
 ### Movie | Carousel | Favourite(Batman) | Latest| Details | Player
 
 <p align = "left" >
-  <img width="250" height="500" src="images/details2.png"> &emsp; &emsp; &emsp; 
-  <img width="250" height="500"  src="images/player1.png"> &emsp; &emsp; &emsp; 
+  <img width="250" height="500" src="images/details2.png"> &emsp; &emsp; 
+  <img width="250" height="500"  src="images/player1.png"> &emsp; &emsp; 
   <img width="250" height="500" src="images/player2.png"> 
 </p>
 
