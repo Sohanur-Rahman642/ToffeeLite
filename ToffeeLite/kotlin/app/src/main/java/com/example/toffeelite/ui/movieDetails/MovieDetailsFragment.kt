@@ -6,10 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.toffeelite.R
+import com.example.toffeelite.data.model.EventObserver
 import com.example.toffeelite.databinding.FragmentMovieDetailsBinding
 import com.example.toffeelite.ui.base.BaseFragment
+import com.example.toffeelite.ui.home.HomeFragmentDirections
+
 class MovieDetailsFragment : BaseFragment(true) {
 
     private val args: MovieDetailsFragmentArgs by navArgs()
@@ -30,5 +34,16 @@ class MovieDetailsFragment : BaseFragment(true) {
                     lifecycleOwner = this@MovieDetailsFragment.viewLifecycleOwner
                 }
         return viewDataBinding.root
+    }
+
+    override fun setupViewModelObservers() {
+        viewModel.goToVideoView.observe(
+            viewLifecycleOwner,
+            EventObserver { navigateToVideoView() })
+    }
+
+    private fun navigateToVideoView() {
+        val action = MovieDetailsFragmentDirections.actionMovieDetailsFragmentToVideoViewFragment()
+        findNavController().navigate(action)
     }
 }

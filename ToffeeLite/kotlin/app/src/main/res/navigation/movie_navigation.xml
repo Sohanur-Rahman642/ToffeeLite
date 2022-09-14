@@ -20,15 +20,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/movieListFragment"
-        android:name="com.example.toffeelite.ui.movieList.MovieListFragment"
-        android:label="Movies"
-        tools:layout="@layout/fragment_movie_list" >
-        <action
-            android:id="@+id/action_movieListFragment_to_movieDetailsFragment2"
-            app:destination="@id/movieDetailsFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/movieDetailsFragment"
         android:name="com.example.toffeelite.ui.movieDetails.MovieDetailsFragment"
         android:label="{movieTitleArg}"
@@ -39,6 +30,9 @@
         <argument
             android:name="movieTitleArg"
             app:argType="string" />
+        <action
+            android:id="@+id/action_movieDetailsFragment_to_videoViewFragment"
+            app:destination="@id/videoViewFragment" />
     </fragment>
 
     <fragment
@@ -53,4 +47,9 @@
             android:id="@+id/action_showAllFragment_to_movieDetailsFragment2"
             app:destination="@id/movieDetailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/videoViewFragment"
+        android:name="com.example.toffeelite.ui.videoView.VideoViewFragment"
+        android:label="fragment_video_view"
+        tools:layout="@layout/fragment_video_view" />
 </navigation>

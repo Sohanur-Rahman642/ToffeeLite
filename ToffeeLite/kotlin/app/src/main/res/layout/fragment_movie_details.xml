@@ -31,7 +31,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/backgrounds/scenic[1]" />
+            tools:src="@tools:sample/backgrounds/scenic[1]"
+            android:onClick="@{() -> viewmodel.goToVideoViewPressed()"
+            />
 
         <ProgressBar
             android:id="@+id/movieImageProgressBar"
